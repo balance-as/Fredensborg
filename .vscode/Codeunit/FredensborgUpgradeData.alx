@@ -1,0 +1,112 @@
+codeunit 96800 "BAL Upgrade Data"
+{
+    //Subtype = Upgrade;
+
+    trigger OnRun()
+    begin
+        TransferData();
+    end;
+
+    local procedure TransferData()
+    var
+        GLAccont: Record "G/L Account";
+        GLEntry: Record "G/L Entry";
+        Customer: Record Customer;
+        Resource: Record Resource;
+        JobLedgerEntry: Record "Job Ledger Entry";
+        ApprovalEntry: Record "Approval Entry";
+        PostedApprovalEntry: Record "Posted Approval Entry";
+        JobTask: Record "Job Task";
+    begin
+        GLAccont.setfilter("FAS G/L Account No.", '<>%1', '');
+        if GLAccont.FindSet() then
+            repeat
+                GLAccont."BAL FAS G/L Account No." := GLAccont."FAS G/L Account No.";
+                GLAccont."FAS G/L Account No." := '';
+                GLAccont.modify;
+            until GlAccont.next = 0;
+
+        GLEntry.setfilter("FAS G/L Account No.", '<>%1', '');
+        if GLEntry.FindSet then
+            repeat
+                GLEntry."BAL FAS G/L Account No." := GLEntry."FAS G/L Account No.";
+                GLEntry."FAS G/L Account No." := '';
+                GLEntry.modify;
+            until GLEntry.next = 0;
+
+        customer.setfilter("OIO Export Path", '<>%1', '');
+        if Customer.FindSet then
+            repeat
+                customer."BAL OIO Export Path" := customer."OIO Export Path";
+                Customer."OIO Export Path" := '';
+                Customer.Modify();
+            until customer.next = 0;
+        Resource.setfilter("Acquisition Date", '<>%1', 0D);
+        if Resource.FindSet then
+            repeat
+                Resource."BAL Acquisition Date" := Resource."Acquisition Date";
+                Resource."Acquisition Date" := 0D;
+                Resource.Modify();
+            until Resource.next = 0;
+/*        JobLedgerEntry.SetFilter("Job Description", '<>%1', '');
+        if JobLedgerEntry.FindSet() then
+            repeat
+                JobLedgerEntry."BAL Job Description" := JobLedgerEntry."Job Description";
+                JobLedgerEntry."BAL Job Task Description" := JobLedgerEntry."BAL Job Task Description";
+                JobLedgerEntry."Job Description" := '';
+                JobLedgerEntry."Job Task Description" := '';
+                JobLedgerEntry.Modify();
+            until JobLedgerEntry.Next() = 0;
+  */
+        if ApprovalEntry.FindSet() then
+            repeat
+                if ApprovalEntry."Amount Incl. VAT" <> 0 then
+                    ApprovalEntry."BAL Amount Incl. VAT" := ApprovalEntry."Amount Incl. VAT";
+                ApprovalEntry."Amount Incl. VAT" := 0;
+                if ApprovalEntry."Amount Incl. VAT (LCY)" <> 0 then
+                    ApprovalEntry."BAL Amount Incl. VAT (LCY)" := ApprovalEntry."Amount Incl. VAT (LCY)";
+                ApprovalEntry."Amount Incl. VAT (LCY)" := 0;
+                if ApprovalEntry."Temp. Display Sorting" <> 0 then
+                    ApprovalEntry."BAL Temp. Display Sorting" := ApprovalEntry."Temp. Display Sorting";
+                ApprovalEntry."Temp. Display Sorting" := 0;
+                if ApprovalEntry."Temp. Entry Type" <> 0 then
+                    ApprovalEntry."BAL Temp. Entry Type" := ApprovalEntry."Temp. Entry Type";
+                ApprovalEntry."Temp. Entry Type" := 0;
+                if ApprovalEntry."Original Approver ID" <> '' then
+                    ApprovalEntry."BAL Original Approver ID" := ApprovalEntry."Original Approver ID";
+                ApprovalEntry."Original Approver ID" := '';
+                if ApprovalEntry."Reminder Level" <> 0 then
+                    ApprovalEntry."BAL Reminder Level" := ApprovalEntry."Reminder Level";
+                ApprovalEntry."Reminder Level" := 0;
+                ApprovalEntry.modify;
+            until ApprovalEntry.next = 0;
+        if postedApprovalEntry.FindSet() then
+            repeat
+                if PostedApprovalEntry."Amount Incl. VAT" <> 0 then
+                    PostedApprovalEntry."BAL Amount Incl. VAT" := PostedApprovalEntry."Amount Incl. VAT";
+                PostedApprovalEntry."Amount Incl. VAT" := 0;
+                if PostedApprovalEntry."Amount Incl. VAT (LCY)" <> 0 then
+                    PostedApprovalEntry."BAL Amount Incl. VAT (LCY)" := PostedApprovalEntry."Amount Incl. VAT (LCY)";
+                PostedApprovalEntry."Amount Incl. VAT (LCY)" := 0;
+                if PostedApprovalEntry."Original Approver ID" <> '' then
+                    PostedApprovalEntry."BAL Original Approver ID" := PostedApprovalEntry."Original Approver ID";
+                PostedApprovalEntry."Original Approver ID" := '';
+                if PostedApprovalEntry."Reminder Level" <> 0 then
+                    PostedApprovalEntry."BAL Reminder Level" := PostedApprovalEntry."Reminder Level";
+                PostedApprovalEntry."Reminder Level" := 0;
+                PostedApprovalEntry.modify;
+            until PostedApprovalEntry.next = 0;
+        if JobTask.FindSet() then
+            repeat
+                if (JobTask."Job-G/L Account No." <> '') or (JobTask."Predisposed Amount (LCY)" <> 0) then begin
+                    JobTask."BAL Job-G/L Account No." := JobTask."Job-G/L Account No.";
+                    JobTask."BAL Predisposed Amount (LCY)" := JobTask."Predisposed Amount (LCY)";
+                    JobTask."Job-G/L Account No." := '';
+                    JobTask."Predisposed Amount (LCY)" := 0;
+                    JobTask.modify;
+                end;
+            until JobTask.next = 0;
+                end;
+
+    var
+}
