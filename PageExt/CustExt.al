@@ -4,7 +4,7 @@ pageextension 96800 "BAL Customer Card Ext" extends "Customer Card"
     {
         addafter("Address 2")
         {
-            field("BAL OIO Export Path"; rec."BAL OIO Export Path")
+            field("BAL OIO Export Path"; Rec."BAL OIO Export Path")
             {
                 ApplicationArea = all;
             }

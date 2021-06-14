@@ -2,14 +2,14 @@
   "id": "5ade4808-d11d-4e18-b5b5-a34140b39191",
   "name": "Fredensborg",
   "publisher": "balance.as",
-  "version": "1.0.0.2",
+  "version": "1.0.0.3",
   "brief": "",
   "description": "",
   "privacyStatement": "",
   "EULA": "",
   "help": "",
   "url": "",
-  "logo": "",
+  "logo": "./image/balance_logo.png",
   "dependencies": [],
   "screenshots": [],
   "platform": "17.0.0.0",
@@ -23,7 +23,7 @@
       "to": 96899
     }
   ],
-  "contextSensitiveHelpUrl": "https://ALProject2.com/help/",
+  "contextSensitiveHelpUrl": "https://balance.as/",
   "showMyCode": true,
   "runtime": "6.0"
 }

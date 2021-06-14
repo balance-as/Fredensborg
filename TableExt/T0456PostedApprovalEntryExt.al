@@ -1,4 +1,4 @@
-tableextension 96805 "Bal ApporvalEntry Ext" extends "Approval Entry"
+tableextension 96806 "BAL PostedApporvalEntry Ext" extends "Posted Approval Entry"
 {
     fields
     {
@@ -17,17 +17,6 @@ tableextension 96805 "Bal ApporvalEntry Ext" extends "Approval Entry"
         {
             DataClassification = ToBeClassified;
             Caption = 'Original Approver ID';
-        }
-        field(96803; "BAL Temp. Entry Type"; Option)
-        {
-            DataClassification = ToBeClassified;
-            Caption = 'Temp. Entry Type';
-            OptionMembers = Normal,"Out of Office Sharing","Normal Sharing";
-        }
-        field(96804; "BAL Temp. Display Sorting"; integer)
-        {
-            DataClassification = ToBeClassified;
-            Caption = 'Temp. Display Sorting';
         }
         field(96805; "BAL Reminder Level"; integer)
         {

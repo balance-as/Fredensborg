@@ -1,4 +1,4 @@
-tableextension 96807 "Bal JobTask Ext" extends "Job Task"
+tableextension 96807 "BAL JobTask Ext" extends "Job Task"
 {
     fields
     {
